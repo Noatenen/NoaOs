@@ -76,3 +76,31 @@ Why: to be refined while building and using Today.
 
 **D24. Assistant is the UI font (resolves the font half of D17).** Self-hosted variable woff2 in `public/fonts/assistant/` (Hebrew + Latin subsets, weights 400–800; used: 400/600/700/800), declared in `src/styles/fonts.css`, exposed as `--font-ui` with system fallbacks. Text sizes sit ~1px above a typical system scale because Assistant draws smaller. No second decorative font yet; `--font-hand` stays a system stack.
 Why: strong, readable Hebrew sans that pairs well with Latin; self-hosting keeps zero runtime third-party requests.
+
+## 2026-10-06 — M1 Data foundation
+
+**D25. Vitest added as a dev dependency (M1).**
+Why: the day-key, migration and backup logic can silently misfile or lose personal data; it needs automated tests. Runs in plain Node with an in-memory `localStorage` stand-in (no jsdom). The test config pins `TZ=Asia/Jerusalem` so the 04:00/DST tests behave the same on any machine. · Alt: no tests until later — rejected.
+
+**D26. Collections are introduced milestone by milestone, each with a schema version bump.** *(Accepted.)*
+A collection is created only when its milestone needs it (M1: `days`). Empty future collections are not created up front.
+Introducing a collection bumps `schemaVersion` and adds a migration step that creates it as an empty collection. So the schema version always says which collections are required:
+- **A collection that did not exist yet at that version** (e.g. `tasks` in a version-1 backup made before M3) is valid; migration adds it as empty.
+- **A collection that the version requires but is missing** (e.g. `days` absent from a version-1 backup) is malformed. The backup is rejected, never silently turned into an empty collection.
+In localStorage, a missing key for a required collection means "nothing saved in it yet" (Days and other entities are created lazily), not corruption. That leniency applies to storage only, not to backups, which must be complete for their version.
+Why: avoids building repositories/validation for entities that don't exist yet, keeps older backups importable, and still catches incomplete or hand-edited backups. · Alt: create every v0.1 collection up front — rejected (infrastructure for unbuilt features). · Alt: missing collection always means empty — rejected (would hide incomplete backups).
+
+**D27. Day rollover while NoaOS stays open is an M2 requirement.** *(Accepted.)*
+Today re-evaluates `currentDayKey()` and, if the NoaOS day changed, switches to the new day's state. Two triggers:
+- when the app/tab becomes active again (`visibilitychange` → visible, window `focus`);
+- while visible, a gentle periodic re-check about once a minute, so a tab left on screen across 04:00 also rolls over.
+The boundary is the **04:00** cutoff, not midnight: returning at 02:00 after an evening session stays on the same day; at 04:00 or later it moves to the new day. Day-key logic stays in `src/lib/dates.ts`.
+Unsaved form state at rollover: if an unsaved Morning Check-in is open when the NoaOS day changes, its unsaved state is discarded and Today moves to the new day. No draft/autosave machinery in v0.1. Anything already persisted stays attached to the dayKey it was saved under.
+Why: the app must never stay on yesterday after being left open overnight (MVP daily loop, step 5).
+
+**D28. `checkInSkipped` distinguishes "not checked in yet" from "chose to skip today".** *(Accepted; behavior for M2.)*
+- The check-in is prominent while `checkIn` is null and `checkInSkipped` is false.
+- Skipping sets `checkInSkipped = true` (this interaction creates the Day lazily).
+- A quiet option to check in later remains; completing a later check-in sets `checkInSkipped` back to false.
+- No streak, failure, "missed" state or judgment is ever derived from this field.
+Why: `checkIn: null` alone can't tell "not yet" from "not today", and a skip must survive a reload.

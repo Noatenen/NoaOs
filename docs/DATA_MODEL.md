@@ -200,6 +200,8 @@ MetricEntry / WorkoutEntry / Capture / JournalEntry / WorkSession ── dayKey 
 - localStorage, accessed **only** through `src/data/storage.ts`.
 - One key per collection, prefixed: `noaos:days`, `noaos:tasks`, `noaos:projects`, `noaos:metrics`, `noaos:workouts`, `noaos:captures`, `noaos:journal`, `noaos:workSessions`, `noaos:settings`.
 - `noaos:schemaVersion` — integer, starts at `1`.
+- Collections are created as their milestone is built (M1: `noaos:days`). Introducing a collection bumps `schemaVersion`, with a migration that adds it as empty (D26). In storage, a missing key for a current collection means nothing has been saved in it yet.
+- Stored data that can't be read (invalid JSON, unknown or newer schema version, failed validation) is **never overwritten automatically**; NoaOS reports it and leaves the bytes untouched. Only an explicitly confirmed backup import may replace it.
 - Values are JSON arrays of entities (or one object for settings).
 - Expected v0.1 volume (text only) is far below localStorage's ~5MB limit. Images would not be — hence IndexedDB before images.
 
@@ -223,4 +225,4 @@ Export produces one JSON file (`noaos-backup-YYYY-MM-DD.json`, git-ignored):
 }
 ```
 
-Import: validate `app` and `schemaVersion`, run migrations if older, show a summary (counts per collection), and replace current data only after confirmation.
+Import: validate `app` and `schemaVersion`, run migrations if older, show a summary (counts per collection), and replace current data only after confirmation. Validation and migration happen entirely in memory before anything is written, and the replacement is all-or-nothing: if any write fails, the previous values are put back. A backup must contain every collection its `schemaVersion` requires: a collection introduced in a later version is added (empty) by migration, but a required collection that is missing makes the backup invalid (D26).

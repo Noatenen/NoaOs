@@ -9,7 +9,7 @@
 | 2A | Repository & docs | Repo-local Git setup, documentation foundation, `.gitignore` |
 | M0 | Scaffold & shell | Vite + React + TS, RTL root, tokens, global CSS, router, navigation for all 7 + 2 areas with placeholders, font |
 | M1 | Data foundation | `dates.ts` (+tests, 04:00 cutoff), storage + repositories, schema version + migrations, export/import, lazy Day creation |
-| M2 | Today + Morning Check-in + Focus | Check-in flow incl. opt-in of yesterday's unfinished focus; Today composition |
+| M2 | Today + Morning Check-in + Focus | Check-in flow incl. opt-in of yesterday's unfinished focus; Today composition; **day rollover while the app stays open** — re-evaluate the NoaOS day (04:00 cutoff) when the tab becomes active again (D27) |
 | M3 | Tasks | Basic CRUD; due/linked tasks surface in Today |
 | M4 | Me | Water, steps (soft goals + progress), workout/yoga; Life Stats in Today; goals in Settings |
 | M5 | Quick Capture + Brain inbox | Global capture (text/links), Brain list with status/category |

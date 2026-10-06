@@ -32,7 +32,7 @@ Today owns almost no data; it **composes** data from other areas filtered by the
 Draft blocks:
 
 1. **Header** — Hebrew date, greeting appropriate to time of day.
-2. **Morning Check-in** — prominent until done (or skipped); afterwards collapses into a small summary (mood/energy) that can be edited.
+2. **Morning Check-in** — prominent until done (or skipped); afterwards collapses into a small summary (mood/energy) that can be edited. After a skip, a quiet option to check in later remains (D28).
 3. **Focus** — up to 3 items, the visual heart of the day.
 4. **Next Up / Tasks** — tasks due today and task-linked focus items. Short, not the full task list.
 5. **Work Session** — running timer (if any) or a quick start; gentle "unreported time" indicator.
@@ -50,6 +50,10 @@ Schedule (calendar) is part of the long-term Today but has no data source in v0.
 | ~19:00 – 03:59 | Evening Reflection, light summary of the day |
 
 Nothing is ever hidden, only re-weighted.
+
+### Day rollover while open (D27)
+
+Today never stays on yesterday. It re-checks the NoaOS day when the tab becomes active again and about once a minute while visible; the boundary is **04:00**, not midnight. When the day changes, Today switches to the new day's state. An unsaved Morning Check-in open at that moment is discarded (no drafts/autosave in v0.1); anything already saved stays on the day it was saved under.
 
 ### Returning after absence
 
