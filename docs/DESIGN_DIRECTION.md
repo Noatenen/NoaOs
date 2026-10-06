@@ -33,7 +33,7 @@ Exact values are defined as tokens in code and iterated visually.
 
 ### Typography
 
-Hebrew-first font, self-hosted (no third-party font requests at runtime). Final choice is a design-phase decision. Expect: one strong readable Hebrew sans for UI, optionally one expressive/handwritten face for Noa-layer moments.
+Hebrew-first font, self-hosted (no third-party font requests at runtime). UI font: **Assistant** (D24). Expect: one strong readable Hebrew sans for UI, optionally one expressive/handwritten face for Noa-layer moments.
 
 ## The Noa layer
 

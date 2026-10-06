@@ -71,3 +71,8 @@ Why: precise, unit-independent; "glasses" is ambiguous. · Alt: glasses — reje
 
 **D23. Today's blocks and time-of-day emphasis are a UX/design draft, not a locked decision.**
 Why: to be refined while building and using Today.
+
+## 2026-10-06 — Typography
+
+**D24. Assistant is the UI font (resolves the font half of D17).** Self-hosted variable woff2 in `public/fonts/assistant/` (Hebrew + Latin subsets, weights 400–800; used: 400/600/700/800), declared in `src/styles/fonts.css`, exposed as `--font-ui` with system fallbacks. Text sizes sit ~1px above a typical system scale because Assistant draws smaller. No second decorative font yet; `--font-hand` stays a system stack.
+Why: strong, readable Hebrew sans that pairs well with Latin; self-hosting keeps zero runtime third-party requests.

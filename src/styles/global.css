@@ -1,0 +1,47 @@
+/* Base typography and the ambient pastel background behind the whole OS. */
+
+body {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  color: var(--text-body);
+  background-color: var(--page-bg);
+}
+
+/*
+  Ambient light: soft pastel glows fixed behind everything.
+  Plain gradients (no blur filter) so it costs almost nothing on phones.
+  Glass surfaces blur whatever sits behind them, which is this light.
+*/
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(42vmax 36vmax at 88% 6%, var(--color-baby-blue) 0%, transparent 70%),
+    radial-gradient(38vmax 34vmax at 8% 18%, var(--color-blush) 0%, transparent 70%),
+    radial-gradient(40vmax 40vmax at 62% 92%, var(--color-lavender) 0%, transparent 70%),
+    radial-gradient(30vmax 26vmax at 4% 88%, var(--color-peach) 0%, transparent 72%),
+    radial-gradient(24vmax 22vmax at 40% 40%, rgba(196, 240, 220, 0.55) 0%, transparent 70%);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-strong);
+  line-height: var(--leading-tight);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Latin words / numbers inside Hebrew text keep their own direction. */
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+}

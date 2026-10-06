@@ -1,0 +1,102 @@
+/* Hidden on wide screens; the sidebar handles navigation there. */
+.root {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .root {
+    display: block;
+  }
+}
+
+/* Floating navy-glass bar, lifted off the bottom edge and clear of the iPhone home indicator. */
+.bar {
+  position: fixed;
+  z-index: 20;
+  inset-inline: var(--space-3);
+  inset-block-end: calc(var(--space-3) + env(safe-area-inset-bottom));
+  block-size: var(--bottom-bar-height);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  padding-inline: var(--space-2);
+  color: var(--text-on-anchor-muted);
+  background: var(--glass-anchor-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-anchor-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-anchor-highlight), var(--shadow-float);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding-block: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: inherit;
+  transition: color var(--motion-fast) var(--ease-out);
+}
+
+.tabActive {
+  color: var(--text-on-anchor);
+}
+
+/* Active tab: hot-pink icon with a soft glow. */
+.tabActive svg {
+  filter: drop-shadow(0 0 6px rgba(255, 79, 163, 0.85));
+  color: var(--color-accent);
+}
+
+.backdrop {
+  position: fixed;
+  z-index: 18;
+  inset: 0;
+  background: rgba(20, 27, 60, 0.25);
+}
+
+/* The "more" sheet: light glass panel rising above the bar. */
+.sheet {
+  position: fixed;
+  z-index: 19;
+  inset-inline: var(--space-3);
+  inset-block-end: calc(var(--bottom-bar-height) + var(--space-5) + env(safe-area-inset-bottom));
+  padding: var(--space-3);
+  background: var(--glass-light-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-light-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-light-highlight), var(--shadow-float);
+  animation: rise var(--motion-base) var(--ease-out);
+}
+
+.sheetList {
+  display: flex;
+  flex-direction: column;
+}
+
+.sheetLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-strong);
+}
+
+.sheetActive {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--color-accent);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

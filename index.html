@@ -1,0 +1,17 @@
+<!doctype html>
+<!-- Hebrew-first: language and direction are set on the root, not added later. -->
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#141b3c" />
+    <!-- Start the Hebrew font download early; Hebrew is on every screen. -->
+    <link rel="preload" href="/fonts/assistant/assistant-hebrew-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>NoaOS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

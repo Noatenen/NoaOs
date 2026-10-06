@@ -1,0 +1,27 @@
+/*
+  Wide screens: two columns. In RTL, the first grid column sits on the RIGHT,
+  so the sidebar lands on the reading-start side without any left/right rules.
+*/
+.shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+.main {
+  min-width: 0;
+  padding-block: var(--space-7);
+  padding-inline: clamp(var(--space-5), 5vw, var(--space-8));
+}
+
+/* Narrow screens (breakpoint ~860px; media queries can't read CSS variables). */
+@media (max-width: 860px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .main {
+    padding-block: var(--space-6) calc(var(--bottom-bar-height) + var(--space-6) + env(safe-area-inset-bottom));
+    padding-inline: var(--space-5);
+  }
+}

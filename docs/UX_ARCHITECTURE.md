@@ -18,8 +18,8 @@
 | `noa-ai` *(secondary)* | Noa AI | Mock prototype |
 | `settings` *(secondary)* | הגדרות | Goals + backup |
 
-- **Desktop (≥ ~1024px):** persistent side navigation on the **right** (RTL start side). Primary areas on top, secondary (Noa AI, Settings) grouped lower.
-- **Mobile/narrow:** bottom bar with the most-used areas (Today, Tasks, Brain, Work + "more"), the rest in a "more" sheet. Exact split decided in design.
+- **Desktop / wide (> ~860px):** persistent side navigation on the **right** (RTL start side). Primary areas on top, secondary (Noa AI, Settings) grouped lower.
+- **Mobile/narrow (≤ ~860px):** floating bottom bar with the most-used areas (Today, Tasks, Brain, Work + "more"); Me, Journal, My Noa, Noa AI and Settings live in a "more" sheet. Split refinable in design (one line in `src/app/navigation.ts`).
 - **Global actions** available from every screen: **Quick Capture** and **Rescue Me**. They must be reachable in one tap/click (and Quick Capture via a keyboard shortcut on desktop).
 - **Placeholder areas** are honest: say what will live here, no fake data, no "locked" or guilt framing.
 
