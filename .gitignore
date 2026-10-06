@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Environment / secrets (never commit)
+.env
+.env.*
+!.env.example
+
+# NoaOS personal data — this repository is PUBLIC.
+# Never commit backups/exports of real data.
+*.noaos-backup.json
+noaos-backup*.json
+personal-data/
+
+# Test / tooling output
+coverage/
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
